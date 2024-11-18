@@ -45,7 +45,7 @@ Welcome to my GitHub profile! I'm a **Senior Digital Expert** with **10 years of
 
 - 🌐 [Website](https://lennyobez.com/)
 - 💼 [LinkedIn](https://linkedin.com/in/lennyobez)
-- ✉️ Email: [lenny@lennyobez.com](mailto:lenny@lennyobez.com)
+- ✉️ Email: [github@lennyobez.com](mailto:github@lennyobez.com)
 
 ---
 
