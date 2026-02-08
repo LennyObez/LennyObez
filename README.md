@@ -1,58 +1,57 @@
-# 👋 Hello, I'm Lenny Obez
+# 👋 Hi, I’m Lenny Obez
 
-Welcome to my GitHub profile! I'm a **Senior Digital Expert** with **10 years of experience** in web development, cloud architecture, and digital transformation. My passion lies in crafting efficient and scalable solutions while staying ahead in the ever-evolving tech world.
-
----
-
-## 🚀 About Me
-
-- 🌟 **Passionate Developer**: I specialize in **Laravel**, **PHP**, **JavaScript**, and **SQL** to build robust full-stack applications.
-- ☁️ **Cloud Enthusiast**: Experience with **AWS**, **OVHCloud**, and **Google Cloud** for designing resilient architectures.
-- 🎨 **Creative Visionary**: Proficient in **Adobe Creative Suite**, enhancing projects with visually appealing designs and interfaces.
-- 🔒 **Focused on Security**: Ensuring that all applications meet the highest security and performance standards.
-- 📈 **Continuous Learner**: Constantly exploring new frameworks, tools, and practices to add more skills to my repertoire.
+Full-stack developer from **Huy, Belgium** (PHP/JS/SQL).  
+I build secure, maintainable web systems - and I’m currently building **Pulsar** (WIP): a modular PHP framework designed for real-world apps and long-running runtimes.
 
 ---
 
-## 💼 Professional Experience
+## 🔭 What I’m working on
 
-- **Imprimerie Wallonne des Communes**: Managed mission-critical digital infrastructures for Belgian elections, developing scalable and secure tools.
-- **Freelance Projects**: Delivered tailored solutions for clients in diverse industries, including e-commerce, finance, and media.
-- **Collaborations**: Worked on large-scale projects involving APIs, cloud integrations, and cutting-edge technologies like AI.
+### ⚡ Pulsar (WIP)
+Repo: https://github.com/LennyObez/pulsar-framework
 
----
-
-## 🛠️ Tech Stack
-
-- **Languages**: PHP, JavaScript (ES6+), HTML5, CSS3, SQL
-- **Frameworks**: Laravel, Symfony, Bootstrap
-- **Tools**: Git, GitHub, GitLab, Docker
-- **Cloud Platforms**: AWS, OVHCloud, Google Cloud
-- **CMS**: WordPress, Drupal, PrestaShop, HubSpot
-- **AI Tools**: ChatGPT, OpenAI APIs
+Pulsar is built around **first-party extensions**, strong contracts, and **audit-friendly architecture**.  
+It’s designed for production concerns like **deterministic boot/dependency resolution**, **worker safety**, and **observability that won’t blow up cardinality**.
 
 ---
 
-## 🌟 Highlights
+## 🛠️ Tech stack
 
-- 🏆 Developed a **custom e-commerce platform** for scaling businesses.
-- ✨ Integrated **AI-driven solutions** to optimize workflows and enhance user experiences.
-- 🎯 Spearheaded the transition of legacy systems to **modern web architectures**.
-
----
-
-## 📫 Let's Connect!
-
-- 🌐 [Website](https://lennyobez.com/)
-- 💼 [LinkedIn](https://linkedin.com/in/lennyobez)
-- ✉️ Email: [github@lennyobez.com](mailto:github@lennyobez.com)
+- **Languages:** PHP, JavaScript (ES6+), HTML, CSS, SQL  
+- **Frameworks / UI:** Symfony, Bootstrap (and custom tooling/framework work)  
+- **Tooling:** Git, GitHub, GitLab, Docker, CI/CD, tests + static analysis  
+- **Data:** MySQL, PostgreSQL, SQLite (and Redis when needed)  
+- **Cloud:** AWS, OVHcloud, Google Cloud  
+- **CMS / e-commerce:** WordPress, Drupal, PrestaShop, HubSpot  
 
 ---
 
-## 🔍 My GitHub Stats
+## ✨ Highlights
 
-![Lenny's GitHub Stats](https://github-readme-stats.vercel.app/api?username=lennyobez&show_icons=true&theme=default)
+- 🏆 Built **custom e-commerce platforms** and integrations for growing businesses  
+- ✨ Integrated **AI-assisted workflows** to speed up planning, refactors, tests, and docs (with human review)  
+- 🎯 Modernized legacy stacks into **clean, testable architectures** with a security + performance focus  
+- 🗳️ Worked on **mission-critical digital infrastructure** (including election-related tooling)
 
 ---
 
-Feel free to explore my repositories and see how I tackle digital challenges. Let's collaborate and create something impactful together! 🌟
+## 🤖 AI tools I use (responsibly)
+
+- ChatGPT, Claude, Gemini  
+- GitHub Copilot (IDE + PRs)
+
+My rule: AI helps me move faster - but I still benchmark, review, and own the final result.
+
+---
+
+## 📷 Outside of code
+
+Explorer + photographer - mostly night, urban, and “mission vibe” shoots.
+
+---
+
+## 📫 Connect
+
+- Website: https://lennyobez.com/
+- LinkedIn: https://linkedin.com/in/lennyobez
+- Email: mailto:github@lennyobez.com
