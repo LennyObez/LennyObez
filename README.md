@@ -1,57 +1,82 @@
-# 👋 Hi, I’m Lenny Obez
+# Lenny Obez
 
-Full-stack developer from **Huy, Belgium** (PHP/JS/SQL).  
-I build secure, maintainable web systems - and I’m currently building **Pulsar** (WIP): a modular PHP framework designed for real-world apps and long-running runtimes.
+Full-stack PHP developer based in Huy, Belgium. Founder of Lenny Obez Ind.
 
----
-
-## 🔭 What I’m working on
-
-### ⚡ Pulsar (WIP)
-Repo: https://github.com/LennyObez/pulsar-framework
-
-Pulsar is built around **first-party extensions**, strong contracts, and **audit-friendly architecture**.  
-It’s designed for production concerns like **deterministic boot/dependency resolution**, **worker safety**, and **observability that won’t blow up cardinality**.
+I build secure, maintainable software for real-world use — from frameworks
+to end-user applications and professional websites.
 
 ---
 
-## 🛠️ Tech stack
+## Current Projects
 
-- **Languages:** PHP, JavaScript (ES6+), HTML, CSS, SQL  
-- **Frameworks / UI:** Symfony, Bootstrap (and custom tooling/framework work)  
-- **Tooling:** Git, GitHub, GitLab, Docker, CI/CD, tests + static analysis  
-- **Data:** MySQL, PostgreSQL, SQLite (and Redis when needed)  
-- **Cloud:** AWS, OVHcloud, Google Cloud  
-- **CMS / e-commerce:** WordPress, Drupal, PrestaShop, HubSpot  
+### Pulsar Framework
+A next-generation PHP 8.5+ HMVC framework for security-critical applications,
+featuring deterministic boot, extension-first architecture, and built-in
+observability.
+→ [pulsar-framework](https://github.com/LennyObez/pulsar-framework)
+  | [pulsar-framework.com](https://pulsar-framework.com)
 
----
+### Studio Camera
+A premium mobile companion app (Kotlin Multiplatform) for pairing with a
+Studio Camera Box — camera control, live monitoring, and media management
+on Android and iOS.
+→ [studio-camera](https://github.com/LennyObez/studio-camera)
+  | [studio-camera.com](https://studio-camera.com)
 
-## ✨ Highlights
+### Studio Pair
+An offline-first life management app (Flutter/Dart) with encryption,
+background sync, and multi-device support.
+→ [studio-pair](https://github.com/LennyObez/studio-pair)
+  | [studio-pair.com](https://studio-pair.com)
 
-- 🏆 Built **custom e-commerce platforms** and integrations for growing businesses  
-- ✨ Integrated **AI-assisted workflows** to speed up planning, refactors, tests, and docs (with human review)  
-- 🎯 Modernized legacy stacks into **clean, testable architectures** with a security + performance focus  
-- 🗳️ Worked on **mission-critical digital infrastructure** (including election-related tooling)
-
----
-
-## 🤖 AI tools I use (responsibly)
-
-- ChatGPT, Claude, Gemini  
-- GitHub Copilot (IDE + PRs)
-
-My rule: AI helps me move faster - but I still benchmark, review, and own the final result.
-
----
-
-## 📷 Outside of code
-
-Explorer + photographer - mostly night, urban, and “mission vibe” shoots.
+### Websites
+Professional websites built with the Pulsar Framework for clients and
+personal projects.
 
 ---
 
-## 📫 Connect
+## Experience
 
-- Website: https://lennyobez.com/
-- LinkedIn: https://linkedin.com/in/lennyobez
-- Email: mailto:github@lennyobez.com
+- Developed and operated digital infrastructure for the **2024 Belgian
+  elections**, including voter proxy management and coordination tools
+- Built custom e-commerce platforms and integrations for growing businesses
+- Modernized legacy systems into clean, testable architectures with a
+  security and performance focus
+
+---
+
+## Tech Stack
+
+**Languages:** PHP, Kotlin, Dart, JavaScript, SQL
+**Frameworks:** Pulsar (custom), Symfony, Laravel, Compose Multiplatform, Flutter, Riverpod
+**CMS / E-commerce:** WordPress, Drupal, PrestaShop
+**Databases:** PostgreSQL, MySQL, SQLite, Redis
+**Infrastructure:** AWS, Google Cloud, OVHcloud, Docker, CI/CD
+**Quality:** PHPStan, Psalm, Detekt, Deptrac, PHPUnit, Vitest
+
+---
+
+## AI-Assisted Development
+
+I integrate AI tools into my development workflow to accelerate planning,
+implementation, testing, and documentation. Tools I use include Claude,
+ChatGPT, Gemini, and GitHub Copilot.
+
+Every output is reviewed, tested, and validated before integration. AI
+enhances velocity — it does not replace engineering judgment.
+
+---
+
+## Explorer & Photographer
+
+Outside of code, I explore landscapes and urban environments with a camera.
+Night photography, urban scenes, and fieldwork. Content shared across
+platforms.
+
+---
+
+## Contact
+
+- Website: [lennyobez.com](https://lennyobez.com)
+- LinkedIn: [linkedin.com/in/lennyobez](https://linkedin.com/in/lennyobez)
+- Email: [github@lennyobez.com](mailto:github@lennyobez.com)
