@@ -1,6 +1,6 @@
 # Lenny Obez
 
-Full-stack PHP developer based in Huy, Belgium. Founder of Lenny Obez Ind.
+Full-stack PHP developer based in Huy, Belgium. Founder of Obez, Lenny Ind.
 
 I build secure, maintainable software for real-world use — from frameworks
 to end-user applications and professional websites.
