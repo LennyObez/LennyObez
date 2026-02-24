@@ -1,58 +1,66 @@
-# 👋 Hello, I'm Lenny Obez
+# Lenny Obez
 
-Welcome to my GitHub profile! I'm a **Senior Digital Expert** with **10 years of experience** in web development, cloud architecture, and digital transformation. My passion lies in crafting efficient and scalable solutions while staying ahead in the ever-evolving tech world.
+Full-stack PHP developer based in Huy, Belgium. Founder of Obez, Lenny Ind.
 
----
+I build secure, maintainable software for real-world use, from frameworks to end-user applications and professional websites.
 
-## 🚀 About Me
+## Current projects
 
-- 🌟 **Passionate Developer**: I specialize in **Laravel**, **PHP**, **JavaScript**, and **SQL** to build robust full-stack applications.
-- ☁️ **Cloud Enthusiast**: Experience with **AWS**, **OVHCloud**, and **Google Cloud** for designing resilient architectures.
-- 🎨 **Creative Visionary**: Proficient in **Adobe Creative Suite**, enhancing projects with visually appealing designs and interfaces.
-- 🔒 **Focused on Security**: Ensuring that all applications meet the highest security and performance standards.
-- 📈 **Continuous Learner**: Constantly exploring new frameworks, tools, and practices to add more skills to my repertoire.
+### Pulsar Framework
 
----
+A next-generation PHP 8.5+ HMVC framework for security-critical applications, featuring deterministic boot, extension-first architecture, and built-in observability.
 
-## 💼 Professional Experience
+[pulsar-framework](https://github.com/LennyObez/pulsar-framework) | [pulsar-framework.com](https://pulsar-framework.com)
 
-- **Imprimerie Wallonne des Communes**: Managed mission-critical digital infrastructures for Belgian elections, developing scalable and secure tools.
-- **Freelance Projects**: Delivered tailored solutions for clients in diverse industries, including e-commerce, finance, and media.
-- **Collaborations**: Worked on large-scale projects involving APIs, cloud integrations, and cutting-edge technologies like AI.
+### Studio Camera
 
----
+A premium mobile companion app (Kotlin Multiplatform) for pairing with a Studio Camera Box. Camera control, live monitoring, and media management on Android and iOS.
 
-## 🛠️ Tech Stack
+[studio-camera](https://github.com/LennyObez/studio-camera) | [studio-camera.com](https://studio-camera.com)
 
-- **Languages**: PHP, JavaScript (ES6+), HTML5, CSS3, SQL
-- **Frameworks**: Laravel, Symfony, Bootstrap
-- **Tools**: Git, GitHub, GitLab, Docker
-- **Cloud Platforms**: AWS, OVHCloud, Google Cloud
-- **CMS**: WordPress, Drupal, PrestaShop, HubSpot
-- **AI Tools**: ChatGPT, OpenAI APIs
+### Studio Pair
 
----
+An offline-first life management app (Flutter/Dart) with encryption, background sync, and multi-device support.
 
-## 🌟 Highlights
+[studio-pair](https://github.com/LennyObez/studio-pair) | [studio-pair.com](https://studio-pair.com)
 
-- 🏆 Developed a **custom e-commerce platform** for scaling businesses.
-- ✨ Integrated **AI-driven solutions** to optimize workflows and enhance user experiences.
-- 🎯 Spearheaded the transition of legacy systems to **modern web architectures**.
+### lennyobez.com
 
----
+Multilingual personal brand website built on Pulsar Framework. Developer portfolio, photography, exploration, and blog.
 
-## 📫 Let's Connect!
+[site-lennyobez](https://github.com/LennyObez/site-lennyobez) | [lennyobez.com](https://lennyobez.com)
 
-- 🌐 [Website](https://lennyobez.com/)
-- 💼 [LinkedIn](https://linkedin.com/in/lennyobez)
-- ✉️ Email: [github@lennyobez.com](mailto:github@lennyobez.com)
+### Websites
 
----
+Professional websites built with the Pulsar Framework for clients and personal projects.
 
-## 🔍 My GitHub Stats
+## Experience
 
-![Lenny's GitHub Stats](https://github-readme-stats.vercel.app/api?username=lennyobez&show_icons=true&theme=default)
+- Developed and operated digital infrastructure for the **2024 Belgian elections**, including voter proxy management and coordination tools
+- Built custom e-commerce platforms and integrations for growing businesses
+- Modernized legacy systems into clean, testable architectures with a security and performance focus
 
----
+## Tech stack
 
-Feel free to explore my repositories and see how I tackle digital challenges. Let's collaborate and create something impactful together! 🌟
+- **Languages**: PHP, Kotlin, Dart, JavaScript, SQL
+- **Frameworks**: Pulsar (custom), Symfony, Laravel, Compose Multiplatform, Flutter, Riverpod
+- **CMS / e-commerce**: WordPress, Drupal, PrestaShop
+- **Databases**: PostgreSQL, MySQL, SQLite, Redis
+- **Infrastructure**: AWS, Google Cloud, OVHcloud, Docker, CI/CD
+- **Quality**: PHPStan, Psalm, Detekt, Deptrac, PHPUnit, Vitest
+
+## AI-assisted development
+
+I integrate AI tools into my development workflow to accelerate planning, implementation, testing, and documentation. Tools I use include Claude, ChatGPT, Gemini, and GitHub Copilot.
+
+Every output is reviewed, tested, and validated before integration. AI enhances velocity but does not replace engineering judgment.
+
+## Explorer and photographer
+
+Outside of code, I explore landscapes and urban environments with a camera. Night photography, urban scenes, and fieldwork. Content shared across platforms.
+
+## Contact
+
+- Website: [lennyobez.com](https://lennyobez.com)
+- LinkedIn: [linkedin.com/in/lennyobez](https://linkedin.com/in/lennyobez)
+- Email: [github@lennyobez.com](mailto:github@lennyobez.com)
