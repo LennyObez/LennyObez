@@ -69,6 +69,7 @@ PALETTES = {
 # background (WCAG 1.4.11); text pairs are recorded per drawing call and checked at 4.5:1.
 GRAPHIC_PAIRS = [("ok", "bar"), ("accent_text", "window")] + [(f"series.{i}", "window") for i in range(6)]
 
+STALE_DAYS = 30
 STATS_BLOCK = re.compile(r"(<!-- stats:start -->\n)(?:.*?\n)?(<!-- stats:end -->)", re.S)
 HACK_EXTENSIONS = (".hh", ".hhi", ".hack")
 
@@ -307,13 +308,17 @@ LOGO_TILE = "#0D0D1A"
 LOGO_RING = ("M12.5 15.5A6.5 6.5 0 1 1 25.5 15.5A6.5 6.5 0 1 1 12.5 15.5Z"
              "M15.7 15.5A3.3 3.3 0 1 1 22.3 15.5A3.3 3.3 0 1 1 15.7 15.5Z")
 LOGO_L = "M7 9H10.5V18.5H15V22H7Z"
+# The brand mark's own colours, which may not be altered: the only colours outside the palette that
+# the tests accept. Like the window outline and dots, they carry no information.
+DECORATIVE = {"#0039CB", "#E2E8F0"}
 
 
 def header(p: dict) -> Doc:
     h = 268
     doc = Doc(WIDTH, h, "Lenny Obez, senior full-stack developer", HEADER_DESC)
     # One short pulse (two 2 s cycles), switched off entirely under reduced motion.
-    doc.style = (".pulse{transform-box:fill-box;transform-origin:center;animation:pulse 2s ease-out 2}"
+    # Hidden at rest, so the end of the animation looks exactly like reduced motion.
+    doc.style = (".pulse{opacity:0;transform-box:fill-box;transform-origin:center;animation:pulse 2s ease-out 2}"
                  "@keyframes pulse{from{transform:scale(1);opacity:.7}to{transform:scale(3);opacity:0}}"
                  "@media (prefers-reduced-motion:reduce){.pulse{animation:none;opacity:0}}")
     window(doc, p, "lennyobez.com", h)
@@ -582,11 +587,13 @@ def refresh_stats(data: dict, root: Path, today: str) -> list[Path]:
     """Write the card, README block and stats.json under `root` for `data`; return the changed files."""
     assets, readme = root / "assets", root / "README.md"
     stamp = assets / "stats.json"
-    # The card carries a date: keep the previous one only when the stored figures are the same and the
-    # cards would render identically, so an idle week makes no commit and the date never predates its data.
+    # The card carries a date: keep the previous one only when the stored figures are the same, the cards
+    # would render identically and the date is under STALE_DAYS old. With the weekly cron a commit lands
+    # within STALE_DAYS + 7 days, well inside the 60 idle days after which GitHub disables the schedule.
     record = {"date": today, "data": data}
     stored = json.loads(stamp.read_text(encoding="utf-8")) if stamp.exists() else None
-    if stored and stored["data"] == data:
+    if (stored and stored["data"] == data and (datetime.fromisoformat(today) - datetime.fromisoformat(stored["date"])).days
+            < STALE_DAYS):
         previous = {"date": stored["date"], "data": data}
         if all((assets / rel).exists() and (assets / rel).read_text(encoding="utf-8") == doc.render()
                for rel, doc in stats_docs(previous).items()):

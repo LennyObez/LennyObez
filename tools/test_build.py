@@ -12,6 +12,7 @@ import sys
 import tempfile
 import unittest
 import xml.etree.ElementTree as ET
+from datetime import date, timedelta
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -58,6 +59,32 @@ class Palette(unittest.TestCase):
             for fg, bg in doc.pairs:
                 with self.subTest(asset=rel, fg=fg, bg=bg):
                     self.assertGreaterEqual(contrast(fg, bg), 4.5)
+
+    def test_every_colour_drawn_comes_from_the_palette_or_is_declared_decorative(self):
+        # Parsed, not pattern-matched: only known elements, colours only in fill and stroke attributes,
+        # each a palette, series or declared brand colour; the style sheet may set no colour at all.
+        allowed_tags = {"svg", "title", "desc", "style", "defs", "path", "g", "use", "rect", "circle"}
+        for rel, doc in all_docs().items():
+            p = build.PALETTES["dark" if "-dark" in rel else "light"]
+            named = {v for v in p.values() if isinstance(v, str)} | set(p["series"])
+            known = {c.lower() for c in named | build.DECORATIVE | {build.LOGO_TILE}}
+            svg = doc.render()
+            self.assertNotIn("<![CDATA[", svg, rel)
+            for el in ET.fromstring(svg).iter():
+                tag = el.tag.split("}")[-1]
+                with self.subTest(asset=rel, tag=tag):
+                    self.assertIn(tag, allowed_tags)
+                    if tag == "style":
+                        self.assertEqual(el.attrib, {})
+                        css = re.sub(r"/\*.*?\*/", "", el.text or "", flags=re.S).lower()
+                        props = re.findall(r"([a-z-]+)\s*:", css)
+                        self.assertFalse([pr for pr in props if pr.endswith(("color", "fill", "stroke"))], props)
+                    for name, value in el.attrib.items():
+                        name = name.split("}")[-1].lower()
+                        self.assertNotEqual(name, "style")
+                        self.assertFalse(name.endswith("color"), name)
+                        if name in ("fill", "stroke"):
+                            self.assertTrue(value == "none" or value.lower() in known, value)
 
     def test_meaningful_graphics_reach_three_to_one(self):
         for theme, p in build.PALETTES.items():
@@ -161,6 +188,11 @@ class Guards(unittest.TestCase):
         d.rect(20, 40, 160, 12, "#f6f8fa")  # baseline at its bottom edge: the "y" tail leaves it
         with self.assertRaises(ValueError):
             d.text(build.MEDIUM, "Typ", 14, 30, 52, "#1f2328", "#f6f8fa")
+
+    def test_the_pulse_is_hidden_at_rest_like_under_reduced_motion(self):
+        style = build.header(build.PALETTES["light"]).style
+        self.assertRegex(style, r"\.pulse\{opacity:0;")
+        self.assertRegex(style, r"prefers-reduced-motion:reduce\)\{\.pulse\{animation:none;opacity:0\}")
 
     def test_the_logo_tile_is_a_registered_area(self):
         # Registered areas are what the text checks see; a tile drawn through add() would be invisible.
@@ -295,6 +327,31 @@ class Readme(unittest.TestCase):
             with self.subTest(src=img["src"]):
                 self.assertEqual(img.get("alt"), desc)
 
+    def visible(self, markdown: str) -> str:
+        """README text a reader sees as text: tags (and so alt attributes) removed."""
+        return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", markdown)).lower()
+
+    def test_every_line_drawn_in_the_header_is_also_readable_text(self):
+        # Search engines and Ctrl+F see no text inside the SVG outlines; About and Contact restate it.
+        sections = re.findall(r"^## (?:About|Contact)\n(.*?)(?=^## |\Z)", README, re.S | re.M)
+        self.assertEqual(len(sections), 2)
+        text = self.visible(" ".join(sections))
+        for drawn, _, _ in build.header(build.PALETTES["light"]).texts[1:]:
+            for piece in drawn.split(" · "):
+                with self.subTest(piece=piece):
+                    self.assertIn(piece.lower(), text)
+
+    def test_each_project_states_its_chips_in_text(self):
+        for name, labels in build.PROJECTS.items():
+            section = re.search(rf"^### \[[^\]]+\]\(https://github\.com/LennyObez/{re.escape(name)}\)\n(.*?)(?=^##)",
+                                README, re.S | re.M)
+            self.assertIsNotNone(section, name)
+            # The paragraph's last sentence restates the chips, so they never exist only as an image.
+            paragraphs = [p for p in section.group(1).split("\n\n") if p.strip() and not p.lstrip().startswith("<")]
+            last = re.split(r"(?<=\.) ", paragraphs[0].strip())[-1]
+            with self.subTest(project=name):
+                self.assertEqual(last.replace(" licence", ""), ", ".join(labels) + ".")
+
     def test_the_stack_as_text_matches_the_stack_image(self):
         block = re.search(r"<summary>The stack as text</summary>\n\n(.*?)\n\n</details>", README, re.S)
         self.assertIsNotNone(block)
@@ -428,8 +485,25 @@ class RefreshStats(unittest.TestCase):
         for name in ("stats.json", "stats-light.svg", "stats-dark.svg"):
             shutil.copy(build.ASSETS / name, self.root / "assets" / name)
 
+    def day(self, offset: int) -> str:
+        return (date.fromisoformat(STATS["date"]) + timedelta(days=offset)).isoformat()
+
     def test_identical_figures_change_nothing_and_keep_the_date(self):
-        self.assertEqual(build.refresh_stats(STATS["data"], self.root, "2999-01-01"), [])
+        self.assertEqual(build.refresh_stats(STATS["data"], self.root, self.day(build.STALE_DAYS - 1)), [])
+
+    def test_identical_figures_are_re_dated_once_the_card_is_stale(self):
+        changed = build.refresh_stats(STATS["data"], self.root, self.day(build.STALE_DAYS))
+        self.assertEqual(len(changed), 4)
+        self.assertEqual(json.loads((self.root / "assets/stats.json").read_text(encoding="utf-8"))["date"],
+                         self.day(build.STALE_DAYS))
+
+    def test_a_commit_lands_well_inside_githubs_sixty_idle_days(self):
+        # Weekly cron: the longest gap is STALE_DAYS plus one week, plus one more week if a run fails.
+        cron = re.search(r'cron: "([^"]+)"', (ROOT / ".github/workflows/stats.yml").read_text(encoding="utf-8"))
+        minute, hour, dom, month, dow = cron.group(1).split()
+        self.assertEqual((dom, month), ("*", "*"))
+        self.assertRegex(dow, r"^[0-6]$", "the refresh must run every week")
+        self.assertLess(build.STALE_DAYS + 7 + 7, 60)
 
     def test_new_figures_rewrite_card_block_and_record_with_todays_date(self):
         data = {**STATS["data"], "contributions": STATS["data"]["contributions"] + 7}
@@ -444,20 +518,20 @@ class RefreshStats(unittest.TestCase):
     def test_figures_that_change_without_changing_the_card_still_move_the_date(self):
         langs = STATS["data"]["languages"]
         data = {**STATS["data"], "languages": {**langs, "HTML": langs["HTML"] - 100, "Shell": langs["Shell"] + 100}}
-        changed = build.refresh_stats(data, self.root, "2999-01-01")
+        changed = build.refresh_stats(data, self.root, self.day(1))
         self.assertEqual(len(changed), 4)
-        self.assertEqual(json.loads((self.root / "assets/stats.json").read_text(encoding="utf-8"))["date"], "2999-01-01")
+        self.assertEqual(json.loads((self.root / "assets/stats.json").read_text(encoding="utf-8"))["date"], self.day(1))
 
     def test_a_card_that_differs_from_its_render_gets_todays_date(self):
         card = self.root / "assets/stats-dark.svg"
         card.write_text(card.read_text(encoding="utf-8").replace("</svg>", "<g/></svg>"), encoding="utf-8")
-        build.refresh_stats(STATS["data"], self.root, "2999-01-01")
-        self.assertEqual(json.loads((self.root / "assets/stats.json").read_text(encoding="utf-8"))["date"], "2999-01-01")
+        build.refresh_stats(STATS["data"], self.root, self.day(1))
+        self.assertEqual(json.loads((self.root / "assets/stats.json").read_text(encoding="utf-8"))["date"], self.day(1))
 
     def test_a_missing_card_is_rendered_again_with_todays_date(self):
         (self.root / "assets/stats-dark.svg").unlink()
-        build.refresh_stats(STATS["data"], self.root, "2999-01-01")
-        self.assertEqual(json.loads((self.root / "assets/stats.json").read_text(encoding="utf-8"))["date"], "2999-01-01")
+        build.refresh_stats(STATS["data"], self.root, self.day(1))
+        self.assertEqual(json.loads((self.root / "assets/stats.json").read_text(encoding="utf-8"))["date"], self.day(1))
         self.assertTrue((self.root / "assets/stats-dark.svg").exists())
 
     def test_a_readme_without_the_block_writes_nothing(self):
