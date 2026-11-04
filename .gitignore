@@ -11,3 +11,9 @@ Thumbs.db
 # Claude
 CLAUDE.md
 .claude/
+
+# Local work notes
+.worklog/
+
+# Generated locally
+__pycache__/

@@ -1,0 +1,63 @@
+name: Refresh activity card
+
+on:
+  schedule:
+    - cron: "23 5 * * 1"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: stats
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Install pinned tools
+        run: python -m pip install --require-hashes -r tools/requirements.txt
+
+      - name: Render the card from the GitHub API
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python -B tools/build.py stats --payload "$RUNNER_TEMP/additions.json"
+
+      - name: Check the rendered profile
+        run: python -B -m unittest discover -s tools
+
+      # Committing through the API instead of git push gives a commit GitHub signs and verifies.
+      - name: Commit the change
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ ! -s "$RUNNER_TEMP/additions.json" ]; then
+            echo "Figures unchanged, nothing to commit."
+            exit 0
+          fi
+          jq -n \
+            --slurpfile additions "$RUNNER_TEMP/additions.json" \
+            --arg repo "$GITHUB_REPOSITORY" \
+            --arg branch "$GITHUB_REF_NAME" \
+            --arg head "$GITHUB_SHA" \
+            '{
+              query: "mutation($input: CreateCommitOnBranchInput!) { createCommitOnBranch(input: $input) { commit { url } } }",
+              variables: { input: {
+                branch: { repositoryNameWithOwner: $repo, branchName: $branch },
+                expectedHeadOid: $head,
+                message: { headline: "chore(stats): refresh activity card" },
+                fileChanges: { additions: $additions[0] }
+              } }
+            }' > "$RUNNER_TEMP/commit.json"
+          gh api graphql --input "$RUNNER_TEMP/commit.json" --jq '.data.createCommitOnBranch.commit.url'
