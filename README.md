@@ -63,7 +63,7 @@ Smaller repositories and the projects still in design are listed on [lennyobez.c
 <a href="https://github.com/LennyObez/LennyObez/blob/main/assets/stats.json"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/stats-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/stats-light.svg"><img src="assets/stats-light.svg" width="100%" alt="GitHub activity card. The same figures are written out below it."></picture></a>
 
 <!-- stats:start -->
-893 contributions in the last 12 months, 11 public repositories, 5 stars, 4 followers. Languages by bytes across own public repositories: PHP 90.2%, Rust 4.2%, JavaScript 2.4%, CSS 1.7%, TypeScript 0.8%, Other 0.7%. Data as of 2026-11-04.
+894 contributions in the last 12 months, 11 public repositories, 5 stars, 4 followers. Languages by bytes across own public repositories: PHP 86.2%, Rust 3.6%, CSS 3.2%, PLpgSQL 3.1%, JavaScript 2.6%, Other 1.3%. Data as of 2026-11-04.
 <!-- stats:end -->
 
 Refreshed weekly from the GitHub API by [a scheduled workflow](https://github.com/LennyObez/LennyObez/blob/main/.github/workflows/stats.yml). Repository and follower counts are GitHub's own; stars are summed over public repositories other than forks. Language shares leave out forks, archived repositories and this profile repository, and count as PHP the PHP files that GitHub's classifier labels as Hack when the repository holds no Hack file.
